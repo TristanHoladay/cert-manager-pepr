@@ -12,7 +12,7 @@ const { When } = CertManagerIstio;
 async function patchGateway(gateway: string, secretName: string) {
   await K8s(a.GenericKind, {
     kindOverride: {
-      kind: "gateways",
+      kind: "gateway",
       group: "networking.istio.io",
       version: "v1beta1",
     },
