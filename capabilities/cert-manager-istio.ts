@@ -34,7 +34,7 @@ When(a.Secret)
   .InNamespace("istio-system")
   .WithLabel("app.kubernetes.io/istio-gateway-secret", "admin")
   .Mutate(async secret => {
-    patchGateway("admin", secret.Raw.metadata.name);
+    await patchGateway("admin", secret.Raw.metadata.name);
   });
 
 When(a.Secret)
