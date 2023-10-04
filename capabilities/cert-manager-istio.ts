@@ -1,10 +1,10 @@
-import { Capability, RegisterKind, a, k8s } from "pepr";
+import { Capability, a, k8s } from "pepr";
 
 export const CertManagerIstio = new Capability({
   name: "cert-manager-istio",
   description:
     "Take certicicate secrets made by cert-manager and apply to DUBBD deployed Istio gateways.",
-  namespaces: ["default"],
+  namespaces: ["istio-system, cert-manager"],
 });
 
 const { When } = CertManagerIstio;
@@ -16,7 +16,7 @@ When(a.Secret)
     const kc = new k8s.KubeConfig();
     kc.loadFromDefault();
     const ck8s = kc.makeApiClient(k8s.CustomObjectsApi);
-    ck8s.patchNamespacedCustomObject(
+    await ck8s.patchNamespacedCustomObject(
       "networking.istio.io",
       "v1beta1",
       "istio-system",
