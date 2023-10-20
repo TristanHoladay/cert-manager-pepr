@@ -46,7 +46,7 @@ jobs:
         id: updatedzarfyaml
         uses: mikefarah/yq@master
         with:
-          cmd: yq -i '.metadata.name = "dubbd-pepr"' zarf.yaml
+          cmd: yq -i '.metadata.name = "dubbd-pepr"' /dist/zarf.yaml
 
       - name: Create Package
         uses: ./.github/actions/create-zarf-package
