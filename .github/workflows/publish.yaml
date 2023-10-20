@@ -61,6 +61,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Zarf Package
-        run: zarf package publish zarf-package-*.tar.zst oci://ghcr.io/TristanHoladay/
+        run: zarf package publish zarf-package-*.tar.zst oci://ghcr.io/tristanholaday/
         working-directory: ./dist
         timeout-minutes: 60
