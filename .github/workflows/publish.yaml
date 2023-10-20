@@ -47,7 +47,6 @@ jobs:
         uses: mikefarah/yq@master
         with:
           cmd: yq -i '.metadata.name = "dubbd-pepr"' zarf.yaml
-        working-directory: /dist
 
       - name: Create Package
         uses: ./.github/actions/create-zarf-package
