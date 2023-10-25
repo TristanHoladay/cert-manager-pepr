@@ -16,5 +16,37 @@
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "rebaseWhen": "conflicted",
   "commitBodyTable": true,
-  "suppressNotifications": ["prIgnoreNotification"]
+  "suppressNotifications": ["prIgnoreNotification"],
+    "regexManagers": [
+    {
+      "description": "This is a test of using descriptions with regex managers",
+      "fileMatch": [".*\\.ya?ml$"],
+      "matchStrings": [
+        "# renovate: datasource=docker( versioning=(?<versioning>.*?))?\n\\s*-\\s+(?<depName>[^:]+):(?<currentValue>.*)"
+      ],
+      "datasourceTemplate": "docker"
+    },
+    {
+      "fileMatch": [".*\\.ya?ml$"],
+      "matchStrings": [
+        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n",
+        "# renovate: datasource=helm\n .*- name: (?<depName>.*?)\n *url: (?<registryUrl>.*?)\n *version: (?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "helm"
+    }
+  ],
+  "packageRules": [
+    {
+      "datasources": ["docker"],
+      "commitMessageTopic": "Docker image {{depName}}",
+      "commitMessageExtra": "to {{#if isSingleVersion}}v{{{toVersion}}}{{else}}{{{newValue}}}{{/if}}",
+      "enabled": true,
+      "separateMinorPatch": true
+    },
+    {   
+        "description": "Group Github Actions updates.",
+        "matchPaths": [".github/**"],
+        "groupName": "GHA-DEPS"
+    }
+  ]
 }
