@@ -12,11 +12,20 @@
   "dependencyDashboard": true,
   "platform": "github",
   "onboarding": false,
-  "requireConfig": false,
+  "requireConfig": "ignored",
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "rebaseWhen": "conflicted",
   "commitBodyTable": true,
   "suppressNotifications": ["prIgnoreNotification"],
+  "regexManagers": [
+    {
+      "fileMatch": ["\\.*\\.ya?ml$"],
+      "matchStrings": [
+        "# renovate: datasource=docker( versioning=(?<versioning>.*?))?\n\\s+.+:(?<depName>[^:]+):(?<currentValue>.*)"
+      ],
+      "datasourceTemplate": "docker"
+    }
+  ],
   "packageRules": [
     {   
         "description": "Group Github Actions updates.",
